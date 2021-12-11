@@ -1,0 +1,63 @@
+//Given string str which represents a number with separators(, ) in the International number system, the task is to convert this string representation into the Indian Numeric System. 
+//Input: str = “123, 456, 789” 
+//Output: 12, 34, 56, 789 
+
+//Approach.
+1.Remove All Commas from given String.
+2.Than Reverse The given String.
+3.Than first all commaas to 3rd position.
+4.Than Checking to is Reaminng length is greater than 2 or not if yes than put commas (,) at 2 position, else don't do any thing,
+Code Are Given Below with Main function.
+
+#include<bits/stdc++.h>
+using namesapce std;
+
+string Solution(string str,int len)
+{
+for (int i = 0; i < len;i++)
+  {
+ 
+        if (input[i] == ', ') {
+            str.erase(str.begin() + i);
+            len--;
+            i--;
+        }
+        else if (input[i] == ' ') {
+            str.erase(str.begin() + i);
+            len--;
+            i--;
+        }
+        else {
+            i++;
+        }
+    }
+    
+    reverse(str.begin(),str.end());
+    
+    string Result="";
+    for(auto i=0;i<len;i++)
+    {
+      if(i==2)
+      {
+      Result+=str[i];
+      Result+=',';
+      }
+      else if (i > 2 && i % 2 == 0
+                 && i + 1 < len) {
+            Result += str[i];
+            Result += ", ";
+        }
+        else {
+            Result += Result[i];
+        }      
+        
+        
+        return Result;
+}
+
+int main()
+{
+  string str="123, 456, 789";
+  int length=str.length();
+  return Solution(str,length);
+}
