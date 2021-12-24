@@ -1,0 +1,67 @@
+Shivam's classes at the university have just finished, and how he wants to go to the KFC and eat some freid Chicken.
+KFC sells chicken chunks in small and large portions.
+A small chicken chunk in small and large portions.
+
+A small portion contain 3 chunks and large portion have 7 chunks.
+
+Ivan want to eat exactly x chunks.Now he wonderes he can buy exactly this amount of chicken.
+Formally, Shivam wants to know if he can choose two non-negative interger a and b in such a way that a small portions and b large one exactly x chunks.
+
+Help shivam to answer.
+
+Input format:-
+(1<=n<=100)
+(1<=x[i]<=100)
+
+Output format:-
+Print n lines, in i-th line output YES if ivan can buy exactly x[i] else Print NO.
+
+Sample Input:-
+2
+6
+5
+Output:-
+YES
+NO
+
+
+Sample Input
+3
+6
+6
+6
+
+Output:-
+YES
+YES
+YES
+
+#include<iostream>
+#include<conio.h>
+using namespace std;
+String solve(int n)
+{
+  for(auto i=0;i<35;i++)
+  {
+    for(auto j=0;j<15;j++)
+    {
+      int x=i*3+j*7;
+      if(x==n)
+      return "YES";
+    }
+  }
+  else
+  return "NO";
+  
+}
+int main()
+{
+int t;
+cin>>t;
+while(t--)
+{
+int n;
+cin>>n;
+cout<<solve(n)<<endl;
+
+}
