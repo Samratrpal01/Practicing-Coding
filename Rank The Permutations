@@ -1,0 +1,65 @@
+Given a string, find the rank of the string amongst its permutations sorted lexicographically. 
+
+Example 1:
+
+Input:
+S = "abc"
+Output:
+1
+Explanation:
+The order permutations with letters 
+'a', 'c', and 'b' : 
+abc
+acb
+bac
+bca
+cab
+cba
+Example 2:
+
+Input:
+S = "acb"
+Output:
+2
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+ // } Driver Code Ends
+//User function template for C++
+
+class Solution{
+  public:
+    long long findRank(string str) {
+       string temp=str;
+       int n=str.length();
+       sort(str.begin(), str.end());
+       long long count=0;
+       do
+       {
+           if(str==temp)
+           return ++count;
+           
+           
+           count++;
+           
+           
+           
+       }
+      while (next_permutation(str.begin(),str.end()));
+    }
+};
+
+// { Driver Code Starts.
+int main(){
+    int T;
+    cin>>T;
+    while(T--){
+        string s;
+        cin>>s;
+        Solution obj;
+        long long ans = obj.findRank(s);
+        cout<<ans<<endl;
+    }
+}
