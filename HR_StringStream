@@ -1,0 +1,110 @@
+In this challenge, we work with string streams.
+
+stringstream is a stream class to operate on strings. It implements input/output operations on memory (string) based streams. stringstream can be helpful in different type of parsing. The following operators/functions are commonly used here
+
+Operator >> Extracts formatted data.
+Operator << Inserts formatted data.
+Method str() Gets the contents of underlying string device object.
+Method str(string) Sets the contents of underlying string device object.
+Its header file is sstream.
+
+One common use of this class is to parse comma-separated integers from a string (e.g., "23,4,56").
+
+stringstream ss("23,4,56");
+char ch;
+int a, b, c;
+ss >> a >> ch >> b >> ch >> c;  // a = 23, b = 4, c = 56
+Here  is a storage area for the discarded commas.
+
+If the >> operator returns a value, that is a true value for a conditional. Failure to return a value is false.
+
+Given a string of comma delimited integers, return a vector of integers.
+
+Function Description
+
+Complete the parseInts function in the editor below.
+
+parseInts has the following parameters:
+
+string str: a string of comma separated integers
+Returns
+
+vector<int>: a vector of the parsed integers.
+Note You can learn to push elements onto a vector by solving the first problem in the STL chapter.
+
+Input Format
+
+There is one line of  integers separated by commas.
+
+Constraints
+
+The length of  is less than .
+
+Sample Input
+
+23,4,56
+Sample Output
+
+23
+4
+56
+
+Codes Are:-
+#include <iostream>
+#include <map>
+using namespace std;
+
+map <string, string> tagMap;
+
+void createMap(int &n, string pretag) {
+    if(!n) return;
+    
+    string line, tag, attr, value;
+    getline(cin, line);
+    
+    int i=1;
+    if(line[i]=='/') {           // found closing tag
+        while(line[i]!='>') i++;
+        if(pretag.size()>(i-2))        // update tag
+            tag = pretag.substr(0,pretag.size()-i+1);
+        else
+            tag = "";
+    }
+    else {                       // found opening tag
+        while(line[i]!=' ' && line[i]!='>') i++;
+        tag = line.substr(1,i-1);    // update tag
+        if(pretag!="") tag = pretag + "." + tag;
+        
+        int j;
+        while(line[i]!='>') { // go through attributes
+            j = ++i;
+            while(line[i]!=' ') i++;
+            attr = line.substr(j,i-j);    // attribute name
+            
+            while(line[i]!='\"') i++;
+            j = ++i;
+            while(line[i]!='\"') i++;
+            value = line.substr(j,i-j);    // attribute value
+            i+= 1;
+            
+            tagMap[tag + "~" + attr] = value;
+        }
+    }
+    createMap(--n, tag);
+}
+
+int main() {
+    int n, q;
+    cin >> n >> q;
+    cin.ignore();
+    createMap(n,"");
+    
+    string attr, value;
+    while(q--) {
+        getline(cin,attr);
+        value = tagMap[attr];
+        if(value=="") value = "Not Found!";
+        cout << value << endl;
+    }
+    return 0;
+}
