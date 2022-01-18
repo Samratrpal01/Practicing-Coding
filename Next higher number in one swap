@@ -1,0 +1,56 @@
+Given a non-negative number num in the form of string. The task is to apply at most one swap operation on the number num so that the result is the next higher number.
+
+Example 1:
+
+Input: num = "768"
+Output: "786"
+Explanation: This is next higher
+number that we can get.
+Example 2:
+
+Input: num = "333"
+Output: "-1"
+Explanation: There is no higher
+number than 333. 
+Your Task:  
+You don't need to read input or print anything. Your task is to complete the function nxtHighUsingAtMostOneSwap() which takes the string num as inputs and returns the answer.
+
+Codes Are:-
+string nxtHighUsingAtMostOneSwap(string str) { 
+  int l=str.size();
+	    
+	    int idx=-1;
+	    
+	    for(int i=l-2;i>=0;i--)
+	    {
+	        if(str[i]<str[i+1])
+	        {
+	            idx=i;
+	            break;
+	        }
+	    }
+	   if(idx==-1)
+	    return "-1";
+	   
+	   else
+	   {
+    	    int maxdiff=INT_MAX;
+    	    int idx2=-1;
+    	   for(int i=l-1;i>idx;i--)
+    	    {
+    	        if(str[i]>str[idx])
+    	        {
+    	            int diff=str[i]-'0'-str[idx]-'0';
+    	            if(diff<=maxdiff)
+    	               {
+    	                  maxdiff=diff;
+    	                  idx2=i;
+    	               }
+    	        }
+    	    }
+    	  char ch=str[idx];
+	      str[idx]=str[idx2];
+	      str[idx2]=ch;
+	      return str;
+	    }
+}
