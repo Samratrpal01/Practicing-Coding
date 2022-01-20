@@ -1,0 +1,67 @@
+Given two distinct words startWord and targetWord, and a list denoting wordList of unique words of equal lengths. Find the length of the shortest transformation sequence from startWord to targetWord.
+Keep the following conditions in mind:
+
+A word can only consist of lowercase characters.
+Only one letter can be changed in each transformation.
+Each transformed word must exist in the wordList including the targetWord.
+startWord may or may not be part of the wordList.
+The second part of this problem can be found here.
+
+
+Example 1:
+
+Input:
+wordList = {"des","der","dfr","dgt","dfs"}
+startWord = "der", targetWord= "dfs",
+Output:
+3
+Explanation:
+The length of the smallest transformation
+sequence from "der" to "dfs" is 3
+i,e "der" -> "dfr" -> "dfs".
+Example 2:
+
+Input:
+wordList = {"geek", "gefk"}
+startWord = "gedk", targetWord= "geek", 
+Output:
+2
+Explanation:
+gedk -> geek
+Example 3:
+
+Input: 
+wordList = {"poon", "plee", "same", "poie","plea","plie","poin"}
+startWord = "toon", targetWord= "plea",
+Output: 7 
+Explanation:
+toon -> poon -> poin -> poie -> plie -> plee -> plea 
+
+Codes Are:-
+int wordLadderLength(string startWord, string targetWord, vector<string>& wordList) {
+        if(find(wordList.begin(), wordList.end(), targetWord)==wordList.end()) {
+            return 0;
+        }
+        queue<pair<int,string>> q;
+        set<string> s;
+        q.push({1, startWord});
+        s.insert(startWord);
+        int ans = 0;
+        while(!q.empty()) {
+            ans = q.front().first;
+            string word = q.front().second;
+            q.pop();
+            if(word==targetWord) return ans;
+            for(int i=0; i<word.size(); i++) {
+                for(char ch='a'; ch<='z'; ch++) {
+                    string temp = word;
+                    temp[i] = ch;
+                    if(find(wordList.begin(), wordList.end(), temp)!=wordList.end() && s.find(temp)==s.end()) {
+                        q.push({ans+1, temp});
+                        s.insert(temp);
+                    }
+                }
+            }
+        }
+        return 0;
+    }
