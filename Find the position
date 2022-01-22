@@ -1,0 +1,44 @@
+Consider a series of numbers composed of only digits 4 and 7. First few numbers in the series are 4, 7, 44, 47, 74, 77, 444, .. etc. Given a string N constructed by 4, 7 digit only, find position of this number in this series.
+ 
+
+Example 1:
+
+Input: N = "7"
+Output: 2
+Explanation: In the series 4 , 7 , 44 , 47...
+7 is at second position.
+ 
+
+Example 2:
+
+Input: N = "444"
+Output: 7
+Explanation: In the series 4 , 7 , 44 ,
+47 , 74 , 77 , 444 , 447... 444 is at 7th
+position 
+ 
+
+Your Task:  
+You don't need to read input or print anything. Your task is to complete the function findpos() which accepts a string N as input parameter and returns the position of that string in the given series.
+ 
+
+Expected Time Complexity: O(Length of given string)
+Expected Auxiliary Space: O(1)
+
+Codes Are:-
+unsigned long long int findpos(string no)
+{
+    unsigned long long int ans=0,n=no.size();
+    unsigned long long int wt=1;
+    while(n--)
+    {
+        if(no[n]=='4')
+            ans+=wt*1;
+        else
+            ans+=wt*2;
+        wt*=2;
+    }
+    
+    return ans;
+    
+}
