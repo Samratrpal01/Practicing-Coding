@@ -1,0 +1,58 @@
+Given two strings S and W. Find the number of times W appears as a subsequence of string S where every character of string S can be included in forming at most one subsequence.
+ 
+
+Example 1:
+
+Input: 
+ S = "abcdrtbwerrcokokokd" 
+ W = "bcd" 
+Output: 
+ 2
+Explanation: 
+The two subsequences of string W are
+{ S1 , S2 , S3 } and { S6 , S11 , S18 }
+(Assuming 0- based indexing).
+ 
+
+Example 2:
+
+Input: 
+S = "ascfret" 
+W = "qwer" 
+Output: 
+0
+Explanation:
+No valid subsequences are possible.
+ 
+
+Your Task:  
+You don't need to read input or print anything. Your task is to complete the function numberOfSubsequences() which takes the string S and string W as input parameters and returns the number of subsequences of string W in string S.
+
+ 
+
+Expected Time Complexity: O(N2)
+Expected Auxiliary Space: O(N)
+
+Codes Are:-
+bool isSub(string W, string S, vector <int> &arr){
+        int n = W.size(), m=S.size(), i=0, j=0;
+        if(n>m)
+            return 0;
+        while(W[i]!='\0' && S[j]!='\0'){
+            if(W[i]==S[j] && arr[j] == 0){
+                arr[j] = 1;
+                i++;
+                j++;
+            }
+            else
+                j++;
+        }
+        return W[i]=='\0';
+    }
+    int numberOfSubsequences(string S, string W){
+        int n = S.size(), cnt = 0;
+        vector <int> arr(n, 0);
+        while(isSub(W, S, arr))
+            cnt += 1;
+        return cnt;
+    }
