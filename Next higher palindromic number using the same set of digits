@@ -1,0 +1,43 @@
+Given a palindromic number N in the form of string. The task is to find the smallest palindromic number greater than N using the same set of digits as in N.
+
+Example 1:
+
+Input: 
+N = "35453"
+Output: 
+53435
+Explanation: Next higher palindromic 
+number is 53435.
+Example 2:
+
+Input: N = "33"
+Output: -1
+Explanation: Next higher palindromic number 
+does not exist.
+Your Task:  
+You don't need to read input or print anything. Your task is to complete the function nextPalin() which takes the string N as input parameters and returns the answer, else if no such number exists returns "-1".
+
+Expected Time Complexity: O(|N|log|N|)
+Expected Auxiliary Space: O(1)
+
+Codes Are:-
+string nextPalin(string N) { 
+        int n=N.size();
+        if(n==3)
+        return "-1";
+        
+        string half=N.substr(0,n/2);
+        if(next_permutation(half.begin(),half.end()))
+        {
+            string ans=half;
+            if(n&1)
+            ans+=N[n/2];
+            
+            reverse(half.begin(),half.end());
+            ans+=half;
+            return ans;
+        }
+        return "-1";
+    }
+    
+    
