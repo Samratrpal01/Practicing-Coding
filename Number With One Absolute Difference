@@ -1,0 +1,58 @@
+Given a number N. The task is to return all the numbers less than or equal to N in increasing order, with the fact that absolute difference between any adjacent digits of number should be 1.
+ 
+
+Example 1:
+
+Input: N = 20
+Output: 10 12
+Explanation: Diff between 1 and 0 and
+Diff between 1 and 2 is one.
+
+Example 2:
+
+Input:
+N = 9
+Output: -1
+Explanation: No such number exist.
+ 
+
+Your Task:
+You don't need to read input or print anything. Your task is to complete the function absDifOne() which takes an integer as input and returns a list of numbers.
+ 
+
+Expected Time Complexity : O(2Number of Digits in N)
+Expected Auxiliary Space : O(2Number of Digits in N)
+
+Codes Are:-
+
+vector<long long> absDifOne(long long N)
+    {
+      vector<long long>v;
+      if(N<=9)
+        return v;
+      if(N==10)
+     {   v.push_back(10);
+        return v;
+    }
+    
+    for(int i=10;i<=N;i++)
+    {
+       auto j=to_string(i);
+       auto t=0;
+       for(auto k=0;i<k<j.size()-1;k++)
+       {
+           if(abs(int(j[k])-int(j[k+1]))!=1)
+            {
+                t=1;
+                break;
+            }
+            
+            if(t==0)
+                v.push_back(i);
+       }
+    }
+    
+    return v;
+    
+      
+    }
