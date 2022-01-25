@@ -1,0 +1,102 @@
+Given two integers N and M. Find the longest common contiguous subset in binary representation of both the numbers and print its decimal value.
+
+Example 1:
+
+Input: N = 10, M = 11
+Output: 5
+Explanation: 10 in Binary is "1010" and
+11 in Binary is "1011". The longest common
+contiguous subset is "101" which has a
+decimal value of 5.
+â€‹Example 2:
+
+Input: N = 8, M = 16
+Output: 8
+Explanation: 8 in Binary is "1000" and
+16 in Binary is "10000". The longest common
+contiguous subset is "1000" which has a
+decimal value of 8.
+
+Your Task:
+You don't need to read input or print anything. Your task is to complete the function longestCommon() which takes two integers N and M as inputs and returns the Decimal representation of the longest common contiguous subset in the Binary representation of N and M.
+Note: If there's a tie in the length of the longest common contiguous subset, return the one with the highest decimal value among them.
+
+
+Expected Time Complexity: O((log(max (N, M))3).
+Expected Auxiliary Space: O((log(max (N, M))2).
+
+Codes Are:-
+string decimalToBinary(long long int n)
+{
+    //finding the binary form of the number and
+    //converting it to string.
+    string s = bitset<64> (n).to_string();
+     
+    //Finding the first occurrence of "1"
+    //to strip off the leading zeroes.
+    const auto loc1 = s.find('1');
+     
+    if(loc1 != string::npos)
+        return s.substr(loc1);
+     
+    return "0";
+}
+
+long long int longestCommon (long long int N, long long int M)
+{
+    // your code here
+    string s1 = decimalToBinary(N);
+    string s2 = decimalToBinary(M);
+    
+    long long int maxLength = 0;
+    long long int n = s1.length();
+    long long int m = s2.length();
+    long long int dp[n+1][m+1];
+    tuple<long long int,long long int> temp;
+    vector<tuple<long long int, long long int>> data;
+    
+    for(long long int i=0; i<n+1; i++) {
+        for(long long int j=0; j<m+1; j++) {
+            if(i==0 || j==0) {
+                dp[i][j] = 0;
+            }
+        }
+    }
+    
+    for(long long int i=1; i<n+1; i++) {
+        for(long long int j=1; j<m+1; j++) {
+            if(s1[i-1]==s2[j-1]) {
+                dp[i][j] = 1 + dp[i-1][j-1];
+            }
+            else {
+                dp[i][j] = 0;
+            }
+            
+            if(dp[i][j]>maxLength) {
+                maxLength = dp[i][j];
+                data.clear();
+                temp = make_tuple(i,j);
+                data.push_back(temp);
+            }
+            else if(dp[i][j]==maxLength) {
+                temp = make_tuple(i,j);
+                data.push_back(temp);
+            }
+        }
+    }
+    long long int maxVal = 0;
+    for(int z=0; z<data.size(); z++) {
+        long long int x = get<0>(data[z]);
+        long long int y = get<1>(data[z]);
+        string res = "";
+        while(dp[x][y]!=0) {
+            res.push_back(s1[x-1]);
+            x--;
+            y--;
+        }
+        reverse(res.begin(), res.end());
+        maxVal = max(maxVal, (long long int) stoi(res, 0, 2));
+    }
+    
+    return maxVal;// your code here
+}
