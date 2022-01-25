@@ -1,0 +1,62 @@
+Given a number N and string S of digits (0 to 9) denoting a positive integer. Find a string denoting the lowest integer number possible by removing N digits from S, without changing their order.
+Note: S will not contain any leading zero.
+
+ 
+
+Example 1:
+
+Input:
+N = 2
+S = "143729"
+Output: "1329"
+Explanation: 1329 is the minimum number
+possible after removing '4' and '7'.
+ 
+
+Example 2:
+
+Input:
+N = 3
+S = "10056"
+Output: "0"
+Explanation: 0 is the minimum number
+possible after removing '1' , '5' and '6'.
+ 
+
+Your Task:  
+You dont need to read input or print anything. Complete the function buildLowestNumber() which accepts string S and integer N as input parameters and returns a string denoting the smallest integer possible after removing N digits from S without changing the order.
+
+
+Expected Time Complexity: O(Length of S) 
+Expected Auxiliary Space: O(Length of S) 
+
+Codes Are:-
+string buildLowestNumber(string num, int k)
+{
+   int n = num.size();
+    stack<char> mystack;
+    //Store the final string in stack
+    for(char c: num)
+    {
+        while(!mystack.empty() && k>0 && mystack.top()>c)
+        {   mystack.pop();      k-=1;   }
+        
+        if(!mystack.empty() || c!='0')
+            mystack.push(c);
+    }
+    
+   
+    while(!mystack.empty() && k--)
+        mystack.pop();
+    if(mystack.empty())
+        return "0";
+    
+    
+    while(!mystack.empty())
+    {
+        num[n-1] = mystack.top();
+        mystack.pop();
+        n-=1;
+    }
+    return num.substr(n);
+}
