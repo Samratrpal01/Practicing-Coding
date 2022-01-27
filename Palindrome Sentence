@@ -1,0 +1,55 @@
+Given a single sentence s, check if it is a palindrome or not. Ignore white spaces and any other character you may encounter. 
+
+Example 1:
+
+Input:
+s = race car.
+Output: 1 
+Explanation: processing str gives us
+"racecar" which is a palindrome.
+
+Example 2:
+
+Input:
+s = hello world.
+Output: 0
+Explanation: processing str gives us
+"helloworld" which is not a palindrome.
+
+Your Task:  
+You dont need to read input or print anything. Complete the function sentencePalindrome() which takes a string s as input parameter and returns a boolean value denoting if sentence is a palindrome or not.
+
+Note: The driver code prints 1 if the returned value is true, otherwise 0.
+
+
+Expected Time Complexity: O(N) where N is length of s.
+Expected Auxiliary Space: O(1)
+
+
+Constraints:
+1<= s.length() <= 104
+All the alphabets used in the sentence are in lower case.
+
+Codes Are:-
+
+	bool sentencePalindrome(string s) 
+	{  int n=s.length();
+	    string str="";
+	    for(auto i=0;i<n;i++)
+	    {
+	        if(isalpha(s[i]))
+	        str+=s[i];
+	    }
+	    n=str.length();
+	   int i=0,j=n-1;
+	    while(i<n and j>-1)
+	   {
+	       if(str[i]!=str[j])
+	       return false;
+	       
+	       i++;
+	       j--;
+	   }
+	   
+	   return true;
+	}
