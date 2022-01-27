@@ -1,0 +1,39 @@
+Given a positive integer X. The task is to find the smallest even number E such that
+E > X and all digits in X and E are same.
+
+Note: All the digits in X should be same with digits in E.
+
+ 
+
+Example 1:
+
+Input:
+X = 34722641
+Output:
+34724126
+Explanation:
+Next greater number with same 
+digits as in input is 34724126.
+
+Example 2:
+
+Input:
+X = 111
+Output:
+-1
+Explanation:
+You can't rearrange the digits to get an answer.
+
+Codes Are:-
+long long getNextEven(string X)
+    {
+            string E = X;
+    while(next_permutation(E.begin(), E.end())){
+        if((E.back()-'0')%2 == 0)
+            return stoll(E);
+    }
+    return -1;
+
+        
+        
+    }
