@@ -1,0 +1,62 @@
+Consider a string group the similar character in combinations.Then concentenate first element and last element alternatively.
+
+for instances,Consider a string "HelLoWOrrld",it combinatios of similar character will be 
+['d','e','H','lLl',''oO','r','w']
+
+so,final output:dwerHoOlLl
+
+
+Codes Are:-
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void fun(string s)
+{   int n=s.length();
+    map<int,string>mp;
+    for(auto i=0;i<n;i++)
+    {
+        char temp=tolower(s[i]);
+        mp[temp-'a']+=s[i];
+        
+        
+       
+    }
+    
+    string res="";
+    auto i=mp.begin();
+    
+    std::vector<string>v ;
+    while(i!=mp.end())
+    {
+        v.push_back(i->second);
+        i++;
+        
+    }
+    
+   n=mp.size();
+   if(n%2==0)
+   for(auto i=0;i<n/2;i++)
+   {
+       res+=v[i],res+=v[n-i-1];
+   }
+   else
+    {
+       for(auto i=0;i<n/2;i++)
+   {
+       res+=v[i],res+=v[n-i-1];
+   }
+   res+=v[n/2];
+    }
+   cout<<res;
+    
+    
+}
+
+int main() {
+	string s;
+	cin>>s;
+    fun(s);
+    
+	return 0;
+}
