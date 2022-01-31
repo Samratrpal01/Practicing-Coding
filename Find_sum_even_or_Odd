@@ -1,0 +1,40 @@
+Given an integer N and flag isReturnEven
+a:- If isReturnEven is true then return the sum of even positions digits of integer N.
+b:- If isReturnEven is false then return the sum of odd position digits of integer N.
+
+position of digits start from the left with 1 as the position. Refer to the below example
+If n=25674, 
+then:-
+Position 1 is 2
+Position 2 is 5
+:
+:
+:
+Position 5 is 4
+
+Input N=43125 isReturnEven=true
+Output:- 5 (Digits at even position 3 and 2, So their sum is 5)
+
+Codes Are:-
+
+int fun(int n,int bool isReturnEven)
+{
+    string s=tostring(n);
+    int result=0;
+    if(value)
+    {
+        for(auto i=1;i<s.size();i+=2)
+        {
+            result+=s[i]-'0';
+        }
+    }
+    else
+    {
+        for(auto i=0;i<s.size();i+=2)
+        {
+            result+=s[i]-'0';
+        }
+    }
+    
+    return result;
+}
