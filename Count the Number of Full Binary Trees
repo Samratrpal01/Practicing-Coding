@@ -1,0 +1,94 @@
+Given an array A[] of N integers, where each integer is greater than 1.The task is to find the number of Full binary tree from the given integers, such that each non leaf node value is the product of its children value.
+
+Note: Each integer can be used multiple times in a full binary tree. 
+
+Example 1:
+Input:
+N = 4
+A[] = {2, 3, 4, 6}
+
+Output:
+7
+Explanation:
+There are 7 full binary tree with
+the given product property.
+Four trees with single nodes
+2  3  4  6
+Three trees with three nodes
+    4   ,
+   / \
+  2   2
+   6    ,
+  / \
+ 2   3
+
+   6
+  / \
+ 3   2
+ 
+
+Example 2:
+Input: N = 3
+A[] = {2, 4, 5} 
+
+Output: 7
+Explanation: There are 4 full binary tree
+with the given product property. 
+Three trees with single nodes 2 4 5
+One tree with three nodes
+   6
+  / \
+  3   2
+ 
+
+Your Task:  
+You don't need to read input or print anything. Your task is to complete the function numoffbt() which takes the array A[]and its size N as inputs and returns the number of Full binary tree.
+
+Expected Time Complexity: O(N. Log(N))
+Expected Auxiliary Space: O(N)
+
+Codes Are:-
+ int numoffbt(int arr[], int n)
+    {
+        int maxvalue = INT_MIN, minvalue = INT_MAX;
+    for (int i = 0; i < n; i++)
+    {
+        maxvalue = max(maxvalue, arr[i]);
+        minvalue = min(minvalue, arr[i]);
+    }
+ 
+    int mark[maxvalue + 2];
+    int value[maxvalue + 2];
+    memset(mark, 0, sizeof(mark));
+    memset(value, 0, sizeof(value));
+ 
+    
+    for (int i = 0; i < n; i++)
+    {
+        mark[arr[i]] = 1;
+        value[arr[i]] = 1;
+    }
+ 
+    int ans = 0;
+    for (int i = minvalue; i <= maxvalue; i++)
+    {
+         if (mark[i])
+        {
+            for (int j = i + i;
+                 j <= maxvalue && j/i <= i; j += i)
+            {
+                if (!mark[j])
+                    continue;
+                value[j] = value[j] + (value[i] * value[j/i]);
+ 
+                if (i != j/i)
+                    value[j] = value[j] + (value[i] * value[j/i]);
+            }
+        }
+ 
+        ans += value[i];
+
+    }
+        return ans;
+        
+    }
