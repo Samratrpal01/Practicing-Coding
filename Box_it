@@ -1,0 +1,20 @@
+Class and Object Problems
+class Student
+{   public:
+    int scores[5];
+    int sum=0;
+    void input()
+    {
+        for(auto i=0;i<5;i++)
+        {   int tmp;
+            cin>>tmp;
+            scores[i]=tmp;
+            sum+=tmp;
+        }
+        
+    }
+    int calculateTotalScore()
+    {
+        return sum;
+    }
+};
