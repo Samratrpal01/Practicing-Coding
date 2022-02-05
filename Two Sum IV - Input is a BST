@@ -1,0 +1,66 @@
+Given the root of a Binary Search Tree and a target number k, return true if there exist two elements in the BST such that their sum is equal to the given target.
+
+ 
+
+Example 1:
+
+
+Input: root = [5,3,6,2,4,null,7], k = 9
+Output: true
+Example 2:
+
+
+Input: root = [5,3,6,2,4,null,7], k = 28
+Output: false
+
+Codes Are:-
+  bool findTarget(TreeNode* root, int k) {
+        unordered_set<int>us;
+        vector<int>v;
+        in(root,v);
+        return twoPointer(v,k);
+        return dfs(root,k,us);
+    }
+    void in(TreeNode*root,vector<int>&v)
+    {
+        if(root==NULL)return ;
+        in(root->left,v);
+        v.push_back(root->val);
+        in(root->right,v);
+    }
+    bool twoPointer(vector<int>&v,int k)
+    {
+        int  n=v.size();
+        int l,r;
+        l=0;
+        r=n-1;
+        while(l<r)
+        {
+            if(v[l]+v[r]==k)
+            {
+                return true;
+            }
+            else if(v[l]+v[r]>k)
+            {
+                r--;
+            }
+            else
+            {
+                l++;
+            }
+        }
+        return false;
+    }
+    bool dfs(TreeNode *root, int k,unordered_set<int>&us)
+    {
+        if(root==NULL)
+        {
+            return false;
+        }
+        if(us.find(k-root->val)!=us.end())
+        {
+            return true;
+        }
+        us.insert(root->val);
+        return dfs(root->left,k,us)||dfs(root->right,k,us);
+    }
