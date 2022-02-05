@@ -1,0 +1,37 @@
+Given an positive integer N and a list of N integers A[]. Each element in the array denotes the maximum length of jump you can cover. Find out if you can make it to the last index if you start at the first index of the list.
+
+
+Example 1:
+
+Input:
+N = 6
+A[] = {1, 2, 0, 3, 0, 0} 
+Output:
+1
+Explanation:
+Jump 1 step from first index to
+second index. Then jump 2 steps to reach 
+4th index, and now jump 2 steps to reach
+the end.
+Example 2:
+
+Input:
+N = 3
+A[] =  {1, 0, 2}
+Output:
+0
+Explanation:
+You can't reach the end of the array.
+
+Codes Are:-
+int canReach(int A[], int N) {
+        int Reach=0;
+        int i=0;
+        for(i=0;i<N and i<=Reach;i++)
+        {
+            Reach=max(i+A[i],Reach);
+        }
+        
+        return i==N;
+        
+    }
