@@ -1,0 +1,68 @@
+Given the root of a binary search tree (BST) with duplicates, return all the mode(s) (i.e., the most frequently occurred element) in it.
+
+If the tree has more than one mode, return them in any order.
+
+Assume a BST is defined as follows:
+
+The left subtree of a node contains only nodes with keys less than or equal to the node's key.
+The right subtree of a node contains only nodes with keys greater than or equal to the node's key.
+Both the left and right subtrees must also be binary search trees.
+ 
+
+Example 1:
+
+
+Input: root = [1,null,2,2]
+Output: [2]
+Example 2:
+
+Input: root = [0]
+Output: [0]
+
+Codes Are:-
+class Solution
+{
+public:
+    vector<int> modes;
+
+    int cur_num = INT_MIN;
+    int cur_num_count = 0;
+    int max_count = 0;
+    void AddInModes(const int val)
+    {
+        // if a new node val is encountered
+        if (val != cur_num)
+        {
+            // reset current val, and add its count
+            cur_num = val;
+            cur_num_count = 1;
+        }
+        else
+        {
+            // increase its count
+            cur_num_count++;
+        }
+
+        // update max, reset array
+        if (max_count < cur_num_count)
+        {
+            modes = {val};
+            max_count = cur_num_count;
+        }
+        // append in array
+        else if (cur_num_count == max_count)
+            modes.push_back(val);
+    }
+
+    vector<int> findMode(TreeNode *root)
+    {
+        if (root == nullptr)
+            return modes;
+
+        findMode(root->left);
+        AddInModes(root->val);
+        findMode(root->right);
+
+        return modes;
+    }
+};
