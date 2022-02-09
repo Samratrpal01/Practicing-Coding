@@ -1,0 +1,50 @@
+Given the head of a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list. Return the linked list sorted as well.
+
+ 
+
+Example 1:
+
+
+Input: head = [1,2,3,3,4,4,5]
+Output: [1,2,5]
+Example 2:
+
+
+Input: head = [1,1,1,2,3]
+Output: [2,3]
+
+Codes Are:-
+void add(ListNode* &temp1,int i,ListNode* &head)
+    {
+        if(temp1==NULL)
+        {
+            ListNode* temp=new ListNode(i);
+            temp1=temp;
+            head=temp;
+             
+        }
+        else
+        {  ListNode* temp=new ListNode(i);
+        temp1->next=temp;
+        temp1=temp1->next;
+    }
+            
+    }
+    ListNode* deleteDuplicates(ListNode* head) {
+        //ListNode* temp=head;
+        set<int>s;
+        while(head)
+        {
+            s.insert(head->val);
+            head=head->next;
+        }
+        ListNode*temp1;
+        ListNode* temp;
+        temp1=NULL;
+        for(auto i:s)
+        {
+            add(temp1,i,temp);
+            
+        }
+        return temp;
+    }
