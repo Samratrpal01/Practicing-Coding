@@ -1,0 +1,37 @@
+A use give a in[ut 1-12 and we have to return a months dates and input are given as integer of enum type.
+Code Are:-
+
+#include<stdio.h>
+
+enum week{A=1,B=2,C=3,D=4,E=5,F=6,G=7,H=8,I=9,J=10,K=11,L=12};
+
+int main()
+{  
+	
+	enum week t;
+	scanf("%d\n",&t);
+  while(t>0 && t<13)
+  {
+  
+      switch(t)
+    {
+        case A:{printf("%d ",31); break;}
+        case B:{printf("%d ",28); break;}
+        case C:{printf("%d ",31); break;}
+        case D:{printf("%d ",30); break;}
+        case E:{printf("%d ",31); break;}
+        case F:{printf("%d ",31); break;}
+        
+        case G:{printf("%d ",30); break;}
+        case H:{printf("%d ",31); break;}
+        case I:{printf("%d ",30); break;}
+        case J:{printf("%d ",31); break;}
+        case K:{printf("%d ",30); break;}
+        case L:{printf("%d ",31); break;}
+        
+    };
+ scanf("%d",&t);
+}
+	return 0;
+}
+
