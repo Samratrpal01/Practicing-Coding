@@ -1,0 +1,93 @@
+Convert a non-negative integer num to its English words representation.
+
+ 
+
+Example 1:
+
+Input: num = 123
+Output: "One Hundred Twenty Three"
+Example 2:
+
+Input: num = 12345
+Output: "Twelve Thousand Three Hundred Forty Five"
+Example 3:
+
+Input: num = 1234567
+Output: "One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven"
+
+Codes Are:-
+class Solution {
+public:
+    vector<string> singles = {"","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen" };
+	vector<string> tens = {"","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"};
+
+	string in_word(int n){
+		string word = "";
+		if(n > 99){
+			if(n % 100 != 0){
+				//For numbers like 100, 200, 300, etc.
+				word = singles[(n / 100)] + " Hundred ";    
+			}else{
+				//For numbers like 123, 456, 786, etc.
+				word = singles[(n / 100)] + " Hundred";
+			}
+
+			n = n % 100;
+		}
+		//Number is become 0 so there is no point to continue
+		if(n == 0) return word;
+
+		if(n < 20){
+			//For teens and singles
+			word += singles[n];
+		}else{
+			word += tens[n / 10];
+			//Condition for numbers like 2, 3, 4, 5
+			if(n % 10 != 0){
+				word += " " + singles[n%10];
+			}
+		}
+		return word;
+	}
+public:
+	string numberToWords(int n) {      
+
+		if(n == 0)return "Zero";
+
+		string word = "";
+		if(n <= 9){
+			return singles[n];
+		}
+		// Last three Numbers
+		int h = n % 1000;
+		// Removing Last three Numbers
+		n = n / 1000;
+
+
+		int th = n % 1000;
+		n = n / 1000;
+
+		int mil = n % 1000;
+		n = n / 1000;
+
+		// Atlast we will only have one number left
+		int b = n % 10;
+		if(b != 0){
+			word += singles[b] + " Billion ";
+		}
+		if(mil != 0){
+			word += in_word(mil) + " Million ";
+		}
+		if(th != 0){
+			word += in_word(th) + " Thousand ";
+		}
+		if(h != 0){
+			word += in_word(h);
+		}
+		//To remove Last extra space from String
+		if(word[word.size()-1] == ' '){
+			word.pop_back();
+		}
+		return word;
+	}
+};
