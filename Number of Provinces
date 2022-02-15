@@ -1,0 +1,50 @@
+Given a graph with V vertices. Find the number of Provinces.
+Note: A province is a group of directly or indirectly connected cities and no other cities outside of the group.
+
+ 
+
+Example 1:
+
+Input:
+
+Output:
+2
+Explanation:
+The graph clearly has 2 Provinces. 
+Example 2:
+Input:
+
+Output :
+1
+
+Your Task:  
+You don't need to read input or print anything. Your task is to complete the function numProvinces() which takes an integer V and an adjacency matrix adj as input and returns the number of provinces. adj[i][j] = 1, if nodes i and j are connected and adj[i][j] = 0, if not connected.
+
+
+Expected Time Complexity: O(V2)
+Expected Auxiliary Space: O(V)
+
+Codes Are:-
+void dfs(int node,vector<bool>&visited,vector<vector<int>>adj,int N)
+  {
+      visited[node]=true;
+      for(auto i=0;i<N;i++)
+      {
+          if(adj[node][i] && !visited[i])
+            dfs(i,visited,adj,N);
+      }
+  }
+    int numProvinces(vector<vector<int>> adj, int V) {
+        vector<bool>visited(V,false);
+        int count=0;
+        for(auto i=0;i<V;i++)
+        {
+            if(!visited[i])
+            {
+                count++;
+                dfs(i,visited,adj,V);
+            }
+        }
+        
+        return count;
+    }
