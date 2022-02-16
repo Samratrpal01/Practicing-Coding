@@ -1,0 +1,25 @@
+Given a list of names, display the longest name.
+
+
+Example:
+
+Input:
+N = 5
+names[] = { "Geek", "Geeks", "Geeksfor",
+  "GeeksforGeek", "GeeksforGeeks" }
+
+Output:
+GeeksforGeeks
+
+Codes Are:-
+string longest(string names[], int n)
+   {
+       int len=0;
+       int  s;
+       for(int i=0; i<n; i++){
+           if (len<names[i].length()){
+            s= i;
+            len=names[i].length();
+       }}
+       return names[s];
+   }
