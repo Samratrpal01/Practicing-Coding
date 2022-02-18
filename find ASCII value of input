@@ -1,0 +1,16 @@
+Codes Are:-
+#include <stdio.h>
+
+int main(void) {
+	// your code goes here
+	char tmp;
+	printf("Enter the Input\n");
+	scanf("%c",&tmp);
+	while(tmp!='q')
+	{
+	    printf("ASCII Value is %d\n",tmp);
+	    scanf("%c",&tmp);
+	}
+	return 0;
+}
+
