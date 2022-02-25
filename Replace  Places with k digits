@@ -1,0 +1,25 @@
+In this Problem there are given String on Length N and k digit and we are going to replace it with k digts.
+Code Are:-
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	string s;
+	cin>>s;
+	int k;
+	cin>>k;
+	
+	int n=s.length();
+	for(auto i=0;i<n;i++)
+	{
+	 int temp=(s[i]-'0')%2;
+	 if(temp==1)
+	 {  
+	     s[i]=s[(i+k)%n];
+	 }
+	}
+	
+	cout<<s;
+	return 0;
+}
