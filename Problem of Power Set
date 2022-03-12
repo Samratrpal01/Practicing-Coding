@@ -1,0 +1,28 @@
+Statement:-
+find element of the at the rank of array.
+2
+4
+a,b
+output
+a,b
+Codes Are:-
+from itertools import combinations
+list2=[]
+def print_powerset(string,m):
+    count=m
+    for i in range(0,len(string)+1):
+        for element in combinations(string,i):
+            if(count):
+                count=count-1
+                list2.append(','.join(element))
+              
+            
+    print(list2[m-1])
+
+n=int(input())
+m=int(input())
+temp=input()
+temp=temp.split(",")
+print_powerset(temp,m)
+
+
