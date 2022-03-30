@@ -1,0 +1,48 @@
+Longest Common Prefix in an Array 
+Easy Accuracy: 49.76% Submissions: 34932 Points: 2
+Given a array of N strings, find the longest common prefix among all strings present in the array.
+
+
+Example 1:
+
+Input:
+N = 4
+arr[] = {geeksforgeeks, geeks, geek,
+         geezer}
+Output: gee
+Explanation: "gee" is the longest common
+prefix in all the given strings.
+Example 2:
+
+Input: 
+N = 2
+arr[] = {hello, world}
+Output: -1
+Explanation: There's no common prefix
+in the given strings.''
+
+Codes Are;-
+ string longestCommonPrefix (string arr[], int N)
+    {
+      string s;
+        for(int i=0;i<arr[0].length();i++){
+            int flag=1;
+            for(int j=0;j<N;j++){
+                if(arr[j][i] == arr[0][i]){
+                    continue;
+                }else{
+                    flag=0;
+                }
+            }
+            if(flag==1){
+                s.push_back(arr[0][i]);
+            }else{
+                break;
+            }
+        }
+        if(s.length()>=1){
+            return s; 
+        }else{
+            return "-1";
+        }
+    }
