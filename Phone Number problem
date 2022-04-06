@@ -1,0 +1,77 @@
+Description:-
+In this problem we are given a string which contain string of number from 0 - 9 and we have to generate a new string from this. 
+thsi also contain a double and triple word which show no of time its repreat.
+Codes Are:-
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+
+/*
+ * Complete the 'getPhoneNumber' function below.
+ *
+ * The function is expected to return a STRING.
+ * The function accepts STRING s as parameter.
+ */
+
+string getPhoneNumber(string s) {
+    map<string,int>mp={{"zero",0},{"one",1},{"two",2},{"three",3},{"four",4},{"five",5},{"six",6},{"seven",7},{"eight",8},{"nine",9}};
+    
+     stringstream ss(s);
+        string word;
+        string result="";
+        vector<string>v;
+        while(ss>>word)
+        {
+            v.push_back(word);
+            
+        }
+        int n=v.size();
+        for(auto i=0;i<n;i++)
+        {
+            if(v[i]=="double")
+              {  
+            for(auto j=0;j<2;j++)
+            {
+               result+=to_string(mp[v[i+1]]); 
+            }
+            i++;
+            
+              }
+              
+              else if(v[i]=="triple")
+              {  
+            for(auto j=0;j<3;j++)
+            {
+               result+=to_string(mp[v[i+1]]); 
+            }
+            i++;
+            
+              }
+              else
+              result+=to_string(mp[v[i]]);
+        }
+        
+        
+        
+        return result;
+    
+}
+
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    string s;
+    getline(cin, s);
+
+    string result = getPhoneNumber(s);
+
+    fout << result << "\n";
+
+    fout.close();
+
+    return 0;
+}
