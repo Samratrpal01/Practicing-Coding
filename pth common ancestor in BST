@@ -1,0 +1,46 @@
+Given a Binary Search Tree and two node values x and y present in the BST. Your task is to find the pth (p >= 1) common ancestor of these two nodes x and y.
+
+The 1st common ancestor is the lowest common ancestor. The lowest common ancestor between two nodes n1 and n2 is defined as the lowest node in T that has both n1 and n2 as descendants (where we allow a node to be a descendant of itself).
+
+All the elements of BST are non-negative and there is no duplicate entry in BST. Also, x and y are unequal.
+
+You are required to complete the function pthCommonAncestor().
+
+Return -1 if the pth common ancestor doesn’t exist for a given BST.
+
+Note: The Input/Ouput format and Example given are used for system's internal purpose, and should be used by a user for Expected Output only. As it is a function problem, hence a user should not read any input from stdin/console. The task is to complete the function specified, and not to write the full code.
+ 
+
+Input:
+
+The first line of input contains a single integer T denoting the number of test cases. Then T test cases follow. Each test case consists of three lines. The first line of each test case consists of two integers N and p, denoting the number of elements in the BST and the pth common ancestor to be found, respectively. The second line of each test case consists of N space-separated integers denoting the elements in the BST. The third line of each test case consists of two integers x and y as described in the problem statement.
+
+Codes Are:-
+void LCA(NODE* root,int n1,int n2,int p,vector<int>&v)
+{
+    if(n1<root->data and n2<root->data)
+    {
+        v.push_back(root->data);
+        LCA(root->left,n1,n2,p,v);
+    }
+    else if(n1>root->data and n2>root->data)
+    {
+        v.push_back(root->data);
+        LCA(root->right,n1,n2,p,v);
+        
+    }
+    
+    else
+    {
+        v.push_back(root->data);
+        return;
+    }
+}
+int pthCommonAncestor(int x,int y,NODE *root,int p,vector<int> &v){
+    
+    LCA(root,x,y,p,v);
+    if(v.size()<p)
+    return -1;
+    else
+    return v[v.size()-p];
+}
