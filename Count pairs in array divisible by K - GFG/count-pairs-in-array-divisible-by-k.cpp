@@ -13,19 +13,18 @@ class Solution
     public:
     long long countKdivPairs(int A[], int n, int K)
     {
-        long long ans = 0;
-        unordered_map<int, int> mp;
-        for (int i = 0; i < n; i++) {
-            int j = A[i] % K;
-            if (j == 0 && mp.find(0) != mp.end()) {
-                ans += mp[0];
-            }
-            else if (mp.find(K - j) != mp.end()) {
-                ans += mp[K - j];
-            }
-            mp[j]++;
+        ll count=0;
+        unordered_map<int,int>mp;
+        for(int i=0;i<n;i++){
+            int temp=A[i]%K;
+            if(temp==0 and mp.find(0)!=mp.end())
+                  count+=mp[0];
+            else if(mp.find(K-temp)!=mp.end())
+                count+=mp[K-temp];
+            mp[temp]++;
         }
-        return ans;
+        
+        return count;
     }
 };
 
