@@ -11,15 +11,19 @@ class Solution{
 public:
     long long int arrangeTiles(int N){
         long long int dp[N+1];
-        dp[0] = 1;
-        for(int i = 1;i <= N;i++){
-            if(i == 1 || i == 2 || i == 3)
-                dp[i] = 1;
-            else
-                dp[i] = dp[i-1] + dp[i-4];
+        dp[0]=1;
+        for(int i=1;i<=N;i++)
+        {
+            if(i==1 or i==2 or i==3)
+                dp[i]=1;
+                else
+                    dp[i]=dp[i-4]+dp[i-1];
         }
         return dp[N];
     }
+    
+    
+    
 };
 
 // { Driver Code Starts.
