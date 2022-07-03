@@ -1,0 +1,21 @@
+Count Number of SubTrees having given Sum
+Codes Are:-
+int subTreeSum(Node* root,int X,int &ans)
+{
+    if(!root)
+    return 0;
+    int sum=0;
+    sum+=root->data;
+    sum+=subTreeSum(root->left,X,ans);
+    sum+=subTreeSum(root->right,X,ans);
+    if(sum==X)
+    ans++;
+    
+    return sum;
+}
+int countSubtreesWithSumX(Node* root, int X)
+{
+	int ans=0;
+	subTreeSum(root,X,ans);
+	return ans;
+}
