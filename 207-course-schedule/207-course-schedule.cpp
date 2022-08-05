@@ -1,30 +1,27 @@
 class Solution {
-public:typedef vector<vector<int>>graph;
-   bool iscycle(vector<int> adj[],vector<int> &vis,int id){
-        if(vis[id]==1)
-            return true;
-        if(vis[id]==0){
-            vis[id]=1;
-            for(auto edge : adj[id]){
-                if(iscycle(adj,vis,edge))
-                    return true;
-            }
-        }
-        vis[id] = 2;
-        return false;
-    }
-    bool canFinish(int n, vector<vector<int>>& pre) {
-        vector<int> adj[n];
-        for(auto edge : pre)
-            adj[edge[1]].push_back(edge[0]);
-        vector<int> vis(n,0);
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+       vector<unordered_set<int>> matrix(numCourses); // save this directed graph
+    for(int i = 0; i < prerequisites.size(); ++ i)
+        matrix[prerequisites[i][1]].insert(prerequisites[i][0]);
+    
+    vector<int> d(numCourses, 0); // in-degree
+    for(int i = 0; i < numCourses; ++ i)
+        for(auto it = matrix[i].begin(); it != matrix[i].end(); ++ it)
+            ++ d[*it];
+    
+    for(int j = 0, i; j < numCourses; ++ j)
+    {
+        for(i = 0; i < numCourses && d[i] != 0; ++ i); // find a node whose in-degree is 0
         
-        for(int i=0;i<n;i++){
-            if(iscycle(adj,vis,i))
-                return false;
-        }
-        return true;
+        if(i == numCourses) // if not find
+            return false;
+        
+        d[i] = -1;
+        for(auto it = matrix[i].begin(); it != matrix[i].end(); ++ it)
+            -- d[*it];
     }
-};    
-
-      
+    
+    return true;  
+    }
+};
