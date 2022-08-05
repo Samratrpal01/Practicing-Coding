@@ -1,42 +1,27 @@
 class Solution {
 public:typedef vector<vector<int>>graph;
-    graph buildGraph(int numCourses,vector<vector<int>>&prerequisites)
-    {
-        graph g(numCourses);
-        for(auto p:prerequisites)
-            g[p[1]].push_back(p[0]);
-    
-   return g;
-    }
-    vector<int>computeIndegrees(graph& g)
-    {
-        vector<int>degrees(g.size(),0);
-        for(auto adj:g)
-            for(int v:adj)
-                degrees[v]++;
-        
-        return degrees;
-    }
-        
-    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        graph g=buildGraph(numCourses,prerequisites);
-        vector<int>degrees=computeIndegrees(g);
-        for(int i=0;i<numCourses;i++)
-        {   int j=0;
-         for(;j<numCourses;j++)
-            if(!degrees[j])
-                break;
-            
-        
-        if(j==numCourses)
-        {
-            return false;
+   bool iscycle(vector<int> adj[],vector<int> &vis,int id){
+        if(vis[id]==1)
+            return true;
+        if(vis[id]==0){
+            vis[id]=1;
+            for(auto edge : adj[id]){
+                if(iscycle(adj,vis,edge))
+                    return true;
+            }
         }
-        degrees[j]--;
-        for(int v:g[j])
-        {
-        degrees[v]--;    
-        }
+        vis[id] = 2;
+        return false;
+    }
+    bool canFinish(int n, vector<vector<int>>& pre) {
+        vector<int> adj[n];
+        for(auto edge : pre)
+            adj[edge[1]].push_back(edge[0]);
+        vector<int> vis(n,0);
+        
+        for(int i=0;i<n;i++){
+            if(iscycle(adj,vis,i))
+                return false;
         }
         return true;
     }
