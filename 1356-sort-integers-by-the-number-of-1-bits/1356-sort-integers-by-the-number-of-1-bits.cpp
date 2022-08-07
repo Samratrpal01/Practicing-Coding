@@ -1,15 +1,14 @@
 class Solution {
 public:
-    static bool comp(int a,int b)
-    {  int temp1=__builtin_popcount(a);
-     int temp2=__builtin_popcount(b);
-     if(temp1==temp2)
-         return a<b;
-     return temp1<temp2;
+    static bool compare(const int& a, const int& b){
+        int c1 = __builtin_popcount(a);
+        int c2 = __builtin_popcount(b);
+        if(c1 == c2)
+            return a < b;
+        return c1 < c2;
     }
     vector<int> sortByBits(vector<int>& arr) {
-        sort(arr.begin(),arr.end(),comp);
+        std::sort(arr.begin(),arr.end(), compare);
         return arr;
-        
     }
 };
