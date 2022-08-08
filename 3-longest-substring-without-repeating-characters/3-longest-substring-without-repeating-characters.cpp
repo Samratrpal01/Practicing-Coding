@@ -1,13 +1,14 @@
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s,int st=-1,int ml=0) {
-        vector<int>v(127,-1);
-        for(int i=0;i<s.size();i++)
-        {
-            if(v[s[i]]>st) st=v[s[i]];
-            v[s[i]]=i;
-            ml=max(ml,i-st);
+    int lengthOfLongestSubstring(string s) {
+       vector<int> dict(256, -1);
+        int maxLen = 0, start = -1;
+        for (int i = 0; i != s.length(); i++) {
+            if (dict[s[i]] > start)
+                start = dict[s[i]];
+            dict[s[i]] = i;
+            maxLen = max(maxLen, i - start);
         }
-        return ml;
+        return maxLen;
     }
 };
