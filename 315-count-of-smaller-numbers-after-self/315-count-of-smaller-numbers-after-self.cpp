@@ -1,25 +1,40 @@
-#include<bits/stdc++.h>
-#include<ext/pb_ds/assoc_container.hpp>
-#include<ext/pb_ds/tree_policy.hpp>
-#define ordered_set tree<pair<int, int>, null_type, less<pair<int, int> >, rb_tree_tag, tree_order_statistics_node_update>
-using namespace __gnu_pbds;
-using namespace std;
 class Solution {
 public:
-    vector<int> countSmaller(vector<int>& nums) {
-       ordered_set s;
-        vector<int>ans;
-        int n=nums.size();
-        ans.push_back(0);
-        s.insert({nums[n-1],n-1});
-        for(int i=n-2;i>-1;i--)
-        {
-            ans.push_back(s.order_of_key({nums[i],i}));
-            s.insert({nums[i],i});
+     void merge_countSmaller(vector<int>& indices, int first, int last, 
+                            vector<int>& results, vector<int>& nums) {
+        int count = last - first;
+        if (count > 1) {
+            int step = count / 2;
+            int mid = first + step;
+            merge_countSmaller(indices, first, mid, results, nums);
+            merge_countSmaller(indices, mid, last, results, nums);
+            vector<int> tmp;
+            tmp.reserve(count);
+            int idx1 = first;
+            int idx2 = mid;
+            int semicount = 0;
+            while ((idx1 < mid) || (idx2 < last)) {
+                if ((idx2 == last) || ((idx1 < mid) &&
+                       (nums[indices[idx1]] <= nums[indices[idx2]]))) {
+					tmp.push_back(indices[idx1]);
+                    results[indices[idx1]] += semicount;
+                    ++idx1;
+                } else {
+					tmp.push_back(indices[idx2]);
+                    ++semicount;
+                    ++idx2;
+                }
+            }
+            move(tmp.begin(), tmp.end(), indices.begin()+first);
         }
-        
-        reverse(ans.begin(),ans.end());
-        return ans;
-        
+    }
+public:
+    vector<int> countSmaller(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> results(n, 0);
+        vector<int> indices(n, 0);
+        iota(indices.begin(), indices.end(), 0);
+        merge_countSmaller(indices, 0, n, results, nums);
+        return results;
     }
 };
