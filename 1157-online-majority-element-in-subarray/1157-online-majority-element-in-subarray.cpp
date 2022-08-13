@@ -1,5 +1,7 @@
 class MajorityChecker {
-public:
+public: unordered_map<int, vector<int>> mp;
+    vector<int> arr, node;
+    
    MajorityChecker(vector<int>& arr) : arr(arr) {
         if (arr.size() == 0) return ;
         for (int i = 0; i < arr.size(); ++i) {
@@ -64,8 +66,7 @@ private:
         return ed_idx - st_idx;
     }
 
-    unordered_map<int, vector<int>> mp;
-    vector<int> arr, node;
+   
 };
 
 /**
