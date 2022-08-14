@@ -9,7 +9,7 @@ public:
             merge_countSmaller(indices, first, mid, results, nums);
             merge_countSmaller(indices, mid, last, results, nums);
             vector<int> tmp;
-            
+            tmp.reserve(count);
             int idx1 = first;
             int idx2 = mid;
             int semicount = 0;
