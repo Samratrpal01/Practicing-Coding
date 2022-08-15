@@ -1,15 +1,13 @@
 class Solution {
 public:
     int findSpecialInteger(vector<int>& arr) {
-        int n=arr.size();
-        int temp=n*0.25;
-        map<int,int>mp;
-        for(auto i:arr)
-            mp[i]++;
-        for(auto i:mp)
-            if(i.second>temp)
-                return i.first;
-        
+        int n=arr.size(),t=n/4;
+        for(int i=0;i<n-t;i++)
+        {
+            if(arr[i]==arr[i+t])
+                return arr[i];
+            
+        }
         return -1;
     }
 };
