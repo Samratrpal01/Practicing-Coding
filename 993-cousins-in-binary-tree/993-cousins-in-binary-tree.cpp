@@ -32,7 +32,7 @@ public:
     bool isCousins(TreeNode* root, int x, int y) {
         
         
-        fun(root,0,x,y,root->val);
+        fun(root,0,x,y,0);
         if(hx==hy and px!=py)
             return true;
         else
