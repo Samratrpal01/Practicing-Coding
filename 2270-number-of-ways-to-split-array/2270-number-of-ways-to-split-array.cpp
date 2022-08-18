@@ -1,20 +1,16 @@
 class Solution {
 public:
     int waysToSplitArray(vector<int>& nums) {
-        int n=nums.size();
-        vector<long long>result(n,0);
-        result[0]=nums[0];
-        for(int i=1;i<n;i++)
-        {
-            result[i]=(long long)(result[i-1]+nums[i]);
+         long long sumFromBack(0), sumFromFront(0);
+        for (auto& i : nums)     sumFromBack += i;
+        
+        int n(size(nums)), res(0);
+        for (auto i=0; i<n-1; i++) {
+            
+            sumFromFront += nums[i]; // sum of the first i + 1 elements
+            sumFromBack -= nums[i]; // sum of the last n - i - 1 elements.
+            if (sumFromFront >= sumFromBack)  res++;
         }
-       
-        int count=0;
-        for(int i=0;i<n-1;i++)
-        {
-            if(result[i]>=result[n-1]-result[i])
-                count++;
-        }
-        return count;
+        return res;
     }
 };
