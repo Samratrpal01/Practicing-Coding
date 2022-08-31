@@ -1,37 +1,65 @@
 class Solution {
 public:
-    vector<int> top_sort(int k, vector<vector<int>>& conditions) {
-    vector<int> sorted, id(k), pre(k + 1), q;
-    vector<unordered_set<int>> al(k + 1);
-    for (auto &c : conditions)
-        if(al[c[0]].insert(c[1]).second)
-            ++pre[c[1]];
-    for (auto i = 1; i <= k; ++i)
-        if (pre[i] == 0)
-            q.push_back(i);
-    while (!q.empty()) {
-        vector<int> q1;
-        for (auto i : q) {
-            sorted.push_back(i);
-            for (auto j : al[i])
-                if (--pre[j] == 0)
-                    q1.push_back(j);
+     vector<int> findOrder(int k, vector<vector<int>>& dependencies) {
+                
+        vector<vector<int>> adj(k + 1);
+        vector<int> indegree(k + 1);
+        for(auto dependency: dependencies) {
+            adj[dependency[0]].push_back(dependency[1]);
+            indegree[dependency[1]]++;
         }
-        swap(q, q1);
+        
+        queue<int> q;
+        for(int i = 1; i <= k; i++) {
+            if(indegree[i] == 0) {
+                q.push(i);
+            }
+        }
+        
+        int cnt = 0;
+        vector<int> order;
+        while(!q.empty()) {
+            
+            int cur = q.front();
+            q.pop();
+            
+            cnt++;
+            order.push_back(cur);
+            
+            for(int nbr: adj[cur]) {
+                indegree[nbr]--;
+                
+                if(indegree[nbr] == 0) {
+                    q.push(nbr);
+                }
+            }
+        }
+        
+        if(cnt == k) return order;
+        return {};
     }
-    if (sorted.size() != k)
-        return {};
-    iota(begin(id), end(id), 0);
-    sort(begin(id), end(id), [&](int a, int b){ return sorted[a] < sorted[b]; });    
-    return id;
-}
-vector<vector<int>> buildMatrix(int k, vector<vector<int>>& rowConditions, vector<vector<int>>& colConditions) {
-    auto rid = top_sort(k, rowConditions), cid = top_sort(k, colConditions);
-    if (rid.empty() || cid.empty())
-        return {};
-    vector<vector<int>> res(k, vector<int>(k));    
-    for (int i = 1; i <= k; ++i)
-        res[rid[i - 1]][cid[i - 1]] = i;
-    return res;
-}
+    
+    vector<vector<int>> buildMatrix(int k, vector<vector<int>>& rowConditions, vector<vector<int>>& colConditions) {
+        vector<int> rowArray = findOrder(k, rowConditions);  
+        vector<int> colArray = findOrder(k, colConditions);
+        
+        // If one of the row conditions or col conditions has a cycle
+        if(rowArray.size() == 0 || colArray.size() == 0) {
+            return {};
+        }
+        
+        vector<pair<int, int>> ind(k);   // list of indices (i, j) for k values
+		// from topological ordering deriving the indices for the values
+        for(int i = 0; i < k; i++) {
+            ind[rowArray[i] - 1].first = i;  
+            ind[colArray[i] - 1].second = i;
+        }
+        
+        vector<vector<int>> result(k, vector<int>(k, 0));
+		// iterate over the values and place then in the result grid
+        for(int i = 0; i < k; i++) {
+            result[ind[i].first][ind[i].second] = i + 1;
+        }
+        return result;
+    }
 };
