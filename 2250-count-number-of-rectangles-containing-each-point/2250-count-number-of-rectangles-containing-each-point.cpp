@@ -14,6 +14,8 @@ vector<int> countRectangles(vector<vector<int>>& rectangles, vector<vector<int>>
         for (auto &p: points) {
             int sum = 0;
             for (int i = p[1]; i < 101; i++) {
+                if(umap[i].size()==0)
+                    continue;
                 auto lb = lower_bound(begin(umap[i]), end(umap[i]), p[0]);
                 sum += end(umap[i]) - lb;
             }
