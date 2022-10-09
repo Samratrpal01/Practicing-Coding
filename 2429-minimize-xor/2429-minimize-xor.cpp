@@ -40,7 +40,7 @@ public:
                     ans|=(1<<i);
                     f--;
                 }
-                if(f==0) return num1^ans;
+                if(f==0) return ans^num1;
             }
         }
         
