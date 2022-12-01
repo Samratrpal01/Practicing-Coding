@@ -13,8 +13,7 @@ public:
         while(!q.empty()) {
             int curr = q.front();
             q.pop();
-            if(curr == end)
-                return 1; 
+            
             for(auto &node : graph[curr]){
                 if(!visited[node]){
                     visited[node] = 1; 
@@ -22,6 +21,8 @@ public:
                 }
             }
         }
+        if(visited[end]==1)
+            return true;
         
         return false;
     }
